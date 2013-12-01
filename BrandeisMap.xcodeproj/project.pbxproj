@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		FE6529F21841329E008AD36E /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = FE6529F11841329E008AD36E /* main.c */; };
 		FE6529F41841329E008AD36E /* BrandeisMap.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = FE6529F31841329E008AD36E /* BrandeisMap.1 */; };
+		FE6529FE18413420008AD36E /* Map.c in Sources */ = {isa = PBXBuildFile; fileRef = FE6529FD18413420008AD36E /* Map.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,10 @@
 		FE6529EE1841329D008AD36E /* BrandeisMap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BrandeisMap; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6529F11841329E008AD36E /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		FE6529F31841329E008AD36E /* BrandeisMap.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = BrandeisMap.1; sourceTree = "<group>"; };
+		FE6529FA184132DF008AD36E /* MapInputData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapInputData.h; sourceTree = "<group>"; };
+		FE6529FB18413360008AD36E /* MapInputUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapInputUser.h; sourceTree = "<group>"; };
+		FE6529FC18413401008AD36E /* MapOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapOutput.h; sourceTree = "<group>"; };
+		FE6529FD18413420008AD36E /* Map.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Map.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +67,10 @@
 			children = (
 				FE6529F11841329E008AD36E /* main.c */,
 				FE6529F31841329E008AD36E /* BrandeisMap.1 */,
+				FE6529FA184132DF008AD36E /* MapInputData.h */,
+				FE6529FB18413360008AD36E /* MapInputUser.h */,
+				FE6529FC18413401008AD36E /* MapOutput.h */,
+				FE6529FD18413420008AD36E /* Map.c */,
 			);
 			path = BrandeisMap;
 			sourceTree = "<group>";
@@ -118,6 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE6529F21841329E008AD36E /* main.c in Sources */,
+				FE6529FE18413420008AD36E /* Map.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
