@@ -12,7 +12,7 @@
 /***************************************************************************************/
 
 /*Path to the map folder (that is prepended to all file names).*/
-char PATH[100] = "/Users/xufeizhao/Documents/";
+char PATH[100] = "";/*/Users/xufeizhao/Documents/*/
 
 /*File names*/
 #define FileVertices    "MapDataVertices.txt" /*Map vertex data.*/
@@ -27,17 +27,6 @@ char PATH[100] = "/Users/xufeizhao/Documents/";
 #define MaxEdge   600       /*Maximum number of edges.*/
 #define UndefinedIndex -1   /*All array insides start at 0; -1 is like a nil pointer.*/
 #define InfiniteCost  10000 /*Cost of an edge that does not exist.*/
-
-/*Speeds (based on 3.1 mph average human walking speed according to Wikipedia).*/
-#define WalkSpeed 272    /*ft/min = (3.1 miles/hr) * (5280 ft/mile) / (60 mins/hr)*/
-#define WalkFactorU 0.9  /*Multiply walk speed by this for walk up.*/
-#define WalkFactorD 1.1  /*Multiply walk speed by this for walk down.*/
-#define SkateFactorU 1.1 /*Multiply walk speed by this for skateboard up.*/
-#define SkateFactorF 2.0 /*Multiply walk speed by this for skateboard flat.*/
-#define SkateFactorD 5.0 /*Multiply walk speed by this for skateboard down.*/
-#define StepFactorU 0.5  /*Multiply walk speed by this for walk up steps.*/
-#define StepFactorD 0.9  /*Multiply walk speed by this for walk down steps.*/
-#define BridgeFactor 1.0 /*Multiply walk speed by this for walking on a bridge.*/
 
 
 /***************************************************************************************/
@@ -68,7 +57,10 @@ int Begin, Finish; /*Vertex indices of begin and finish locations.*/
 int BoardFlag;     /*1 if have skateboard*/
 int TimeFlag;      /*1 to minimize time instead of distance*/
 
-
+/***************************************************************************************/
+/*FUNCTION Time(i) TO RETURN THE NUMBER OF SECONDS TO TRAVERSE AN EDGE i               */
+/***************************************************************************************/
+#include "MapTime.h" /*To be used by Dijkstra's algorithm.*/
 
 /***************************************************************************************/
 /*INPUT / OUTPUT FUNCTIONS                                                             */
@@ -87,9 +79,7 @@ struct graphNode{
     int edgeIndex;
     struct graphNode * next;
 };
-struct graphNode * map;  /*array of graphNode*/
-/*struct graphNode map[nV];
-  struct graphNode * map[nV];*/
+struct graphNode * map;  /*Adjacent list data structure. Array of graphNode*/
 
 void initMap(){
     map = (struct graphNode*)malloc(sizeof(struct graphNode)*nV);
@@ -273,13 +263,13 @@ void testHeap(){
 /***************************************************************************************/
 
 /*Do Dijkstra algorithm, reverse back edges, print path with PrintLeg.*/
-int *cost;
+int * cost;
 int * visited;
 struct prevVertex{
     int pre;
     int edge;
 };
-struct prevVertex *previous;
+struct prevVertex *previous;/*Record previous of vertex and corresponding edges*/
 
 void initDijstra(){
     cost = (int*)malloc(sizeof(int)*nV);
@@ -294,6 +284,7 @@ void initDijstra(){
     }
 }
 /*according to the ecode to determine speed value*/
+/*
 double speedSelect(char c){
     double speed = 0.0;
     switch (c) {
@@ -331,7 +322,7 @@ double speedSelect(char c){
             break;
     }
     return speed;
-}
+}*/
 
 void Dijkstra() {
     initDijstra();
@@ -356,9 +347,9 @@ void Dijkstra() {
             if (!TimeFlag) {
                 alt = cost[u.vertex] + Elength[vEdgeIndex];
             }else{
-                int speed = speedSelect(Ecode[vEdgeIndex]);
-         /*       alt = cost[u.vertex] + ((int)(((double)Elength[vEdgeIndex]*60)/speed+0.5));*/
-                alt = cost[u.vertex] + (double)(Elength[vEdgeIndex]*60)/speed;
+          /*      int speed = speedSelect(Ecode[vEdgeIndex]);*/
+          /*      alt = cost[u.vertex] + ((int)(((double)Elength[vEdgeIndex]*60)/speed+0.5));*/
+                alt = cost[u.vertex] + Time(vEdgeIndex);
             }
             if (alt < cost[vVertext] && !visited[vVertext]){
                 cost[vVertext] = alt;
@@ -376,7 +367,7 @@ void Dijkstra() {
     }
     /*reverse back edge*/
     int endIndex = Finish;
-    printf("%d\n",endIndex);
+    /*printf("%d\n",endIndex);*/
     struct paths{
         int edge;
         struct paths * next;
@@ -394,8 +385,7 @@ void Dijkstra() {
     
     /*print the path with PrintLeg. */
     while (result) {
-        int speed = speedSelect(Ecode[result->edge]);
-        PrintLeg(result->edge, ((int)(((double)Elength[result->edge]*60)/speed+0.5)));
+        PrintLeg(result->edge, Time(result->edge));
         result = result ->next;
     }
         
